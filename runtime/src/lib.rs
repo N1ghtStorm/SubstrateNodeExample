@@ -39,6 +39,8 @@ pub use frame_support::{
 };
 use pallet_transaction_payment::CurrencyAdapter;
 
+pub use test_pallet;
+
 /// Import the template pallet.
 pub use pallet_template;
 
@@ -288,6 +290,15 @@ impl pallet_nicks::Config for Runtime {
 //=============================================================================================================
 //=============================================================================================================
 //=============================================================================================================
+// TEST PALLET
+
+impl test_pallet::Config for Runtime {
+	type Event = Event;
+  }
+
+//=============================================================================================================
+//=============================================================================================================
+//=============================================================================================================
 
 parameter_types! {
 	pub const TransactionByteFee: Balance = 1;
@@ -327,7 +338,7 @@ construct_runtime!(
 		Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		// Include the custom logic from the template pallet in the runtime.
 		TemplateModule: pallet_template::{Module, Call, Storage, Event<T>},
-
+		TestPallet: test_pallet::{Module, Call, Storage, Event<T>},
 		// Add nick pallet:
 		Nicks: pallet_nicks::{Module, Call, Storage, Event<T>},
 	}
